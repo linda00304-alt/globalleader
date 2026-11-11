@@ -4,10 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>GLD ANNUAL NIGHT</title>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<!-- 제목: Cinzel(격식 있는 로마 대문자체) / 소제목: Cormorant Garamond / 본문: Noto Sans KR -->
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Cormorant+Garamond:wght@500;600&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<!-- 제목/라벨: Cinzel (숫자가 또렷한 격식체) / 소제목: Cormorant Garamond -->
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Cormorant+Garamond:wght@500;600&display=swap" rel="stylesheet">
+<!-- 한글/본문: Pretendard -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
 
 <!-- JS가 켜져 있을 때만 '숨김 → 등장' 효과 적용 (JS가 꺼져도 내용은 보이게) -->
 <script>document.documentElement.classList.add('js');</script>
@@ -26,10 +30,10 @@
   --gold-dark:#9a7a35;
   --gold-soft:rgba(210,174,98,.4);
   --text:#e4deee;
-  --text-dim:#b3abc6;      /* 본문 색: 이전보다 밝게 */
+  --text-dim:#b3abc6;
   --title:'Cinzel','Noto Serif KR',serif;
   --serif:'Cormorant Garamond','Noto Serif KR',serif;
-  --sans:'Noto Sans KR',sans-serif;
+  --sans:'Pretendard','Pretendard Variable',-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif;
   --ease:cubic-bezier(.22,.8,.24,1);
 }
 *{box-sizing:border-box;margin:0;padding:0}
@@ -39,29 +43,36 @@ body{
   color:var(--text);
   font-family:var(--sans);
   font-weight:400;
-  font-size:17px;
-  line-height:1.85;
+  font-size:16px;
+  line-height:1.8;
+  font-variant-numeric:lining-nums;
   -webkit-font-smoothing:antialiased;
   overflow-x:hidden;
 }
 body.modal-open{overflow:hidden}
-section{padding:140px 24px;max-width:960px;margin:0 auto;position:relative}
-.label{
-  font-family:var(--serif);
-  font-weight:600;
-  font-size:15px;letter-spacing:.3em;
+
+/* 화면 전체를 비추는 고정 조명 무대 위에 내용이 올라감 */
+.hero,main,footer{position:relative;z-index:2}
+
+section{padding:130px 24px;max-width:960px;margin:0 auto;position:relative}
+
+/* 라벨: 숫자가 깨지지 않도록 Cinzel 사용 */
+.label,.ch-label,.plan-item .k{
+  font-family:var(--title);
+  font-weight:500;
+  font-size:12px;letter-spacing:.28em;
   color:var(--gold);
-  margin-bottom:20px;display:block;
 }
+.label{margin-bottom:20px;display:block}
 h2{
   font-family:var(--serif);
   font-weight:600;
-  font-size:clamp(38px,5.4vw,60px);
+  font-size:clamp(34px,5vw,54px);
   color:var(--ivory);
-  line-height:1.15;
+  line-height:1.2;
   margin-bottom:28px;
 }
-p{color:var(--text-dim);font-size:17px;max-width:660px}
+p{color:var(--text-dim);font-size:15px;max-width:640px}
 
 /* 상단 스크롤 진행 바 */
 .progress{
@@ -72,18 +83,13 @@ p{color:var(--text-dim);font-size:17px;max-width:660px}
 }
 
 /* =========================================================
-   1. HERO — 조명 하나가 비추는 전시장 (깜박임 없음)
+   STAGE — 페이지 끝까지 이어지는 고정 조명
    ========================================================= */
-.hero{
-  position:relative;
-  height:100vh;min-height:660px;
-  display:flex;flex-direction:column;
-  align-items:center;justify-content:center;
-  text-align:center;
-  padding:0 24px;
-  overflow:hidden;
+.stage{
+  position:fixed;inset:0;z-index:0;pointer-events:none;
   background:
-    radial-gradient(ellipse 70% 50% at 50% 0%, rgba(42,26,74,.45), transparent 70%),
+    radial-gradient(ellipse 70% 50% at 50% 0%, rgba(42,26,74,.5), transparent 70%),
+    radial-gradient(ellipse 80% 40% at 50% 100%, rgba(42,26,74,.35), transparent 70%),
     linear-gradient(180deg,#0a0714 0%, var(--black) 70%);
 }
 .track{
@@ -98,7 +104,7 @@ p{color:var(--text-dim);font-size:17px;max-width:660px}
   border:1px solid rgba(255,255,255,.08);
   z-index:3;
 }
-.lamp::after{ /* 전구 */
+.lamp::after{
   content:"";position:absolute;bottom:-3px;left:50%;
   width:14px;height:7px;transform:translateX(-50%);
   border-radius:50%;
@@ -106,19 +112,20 @@ p{color:var(--text-dim);font-size:17px;max-width:660px}
   box-shadow:0 0 14px 6px rgba(255,240,200,.85),0 0 60px 24px rgba(255,230,170,.35);
   opacity:0;
 }
+/* 스크롤하면 JS가 --beam 값을 낮춰서 글자가 잘 읽히도록 빛을 은은하게 */
+.light{position:absolute;inset:0;opacity:var(--beam,1)}
 .beam{
   position:absolute;top:20px;left:50%;
   width:1100px;max-width:150vw;height:calc(100% - 20px);
   transform:translateX(-50%);
   background:linear-gradient(180deg,
     rgba(255,244,215,.34) 0%,
-    rgba(255,244,215,.13) 45%,
-    rgba(255,244,215,.04) 85%,
-    transparent 100%);
+    rgba(255,244,215,.14) 45%,
+    rgba(255,244,215,.07) 85%,
+    rgba(255,244,215,.04) 100%);
   clip-path:polygon(48.5% 0,51.5% 0,86% 100%,14% 100%);
   filter:blur(10px);
   opacity:0;
-  pointer-events:none;
 }
 .beam::after{
   content:"";position:absolute;inset:0;
@@ -131,15 +138,23 @@ p{color:var(--text-dim);font-size:17px;max-width:660px}
   transform:translateX(-50%);
   background:radial-gradient(ellipse at center,rgba(255,238,200,.30),rgba(255,238,200,.08) 45%,transparent 70%);
   opacity:0;
-  pointer-events:none;
 }
-#dust{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:1}
+#dust{position:absolute;inset:0;width:100%;height:100%}
 .vignette{
-  position:absolute;inset:0;pointer-events:none;z-index:1;
+  position:absolute;inset:0;
   background:radial-gradient(ellipse at 50% 45%,transparent 35%,rgba(0,0,0,.75) 100%);
 }
 
-/* 스크롤 시 위로 올라가며 사라지는 래퍼 (JS가 제어) */
+/* =========================================================
+   1. HERO (첫 화면 글자 크기는 그대로)
+   ========================================================= */
+.hero{
+  height:100vh;min-height:660px;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  text-align:center;
+  padding:0 24px;
+}
 .hero-parallax{position:relative;z-index:2;will-change:transform,opacity}
 .hero-content{position:relative}
 .hero-top{
@@ -151,7 +166,6 @@ p{color:var(--text-dim);font-size:17px;max-width:660px}
   font-family:var(--serif);font-weight:600;font-size:16px;letter-spacing:.45em;
   color:var(--gold);margin-bottom:34px;
 }
-/* ★ 제목: 격식 있는 Cinzel + 고정된 금색 (움직임/반짝임 없음) */
 .hero h1{
   font-family:var(--title);
   font-weight:500;
@@ -190,7 +204,7 @@ p{color:var(--text-dim);font-size:17px;max-width:660px}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
 
 /* =========================================================
-   스크롤 등장 효과 (섹션 전환)
+   스크롤 등장 효과
    ========================================================= */
 .js .reveal{
   opacity:0;
@@ -201,38 +215,30 @@ p{color:var(--text-dim);font-size:17px;max-width:660px}
 }
 .js .reveal.in{opacity:1;transform:none;filter:none}
 
-.draw{display:block;height:2px;background:var(--gold);width:0;margin:0 0 32px;
+.draw{display:block;height:1px;background:var(--gold);width:0;margin:0 0 32px;
   transition:width 1.2s var(--ease) .1s}
 .draw.in{width:56px}
-
-.divider{
-  height:1px;max-width:960px;margin:0 auto;
-  background:linear-gradient(90deg,transparent,var(--gold-soft),transparent);
-}
 
 /* =========================================================
    2. A shared beginning.
    ========================================================= */
-#beginning .sub{font-size:21px;font-weight:500;color:var(--ivory);margin-bottom:20px}
+#beginning .sub{font-size:17px;font-weight:500;color:var(--ivory);margin-bottom:20px}
 
 /* =========================================================
    3. An evening in chapters.
    ========================================================= */
-.chapter{padding:34px 0;border-top:1px solid rgba(210,174,98,.3)}
-.chapter:last-of-type{border-bottom:1px solid rgba(210,174,98,.3)}
-.chapter .ch-label{
-  font-family:var(--serif);font-weight:600;font-size:15px;letter-spacing:.3em;
-  color:var(--gold);display:block;margin-bottom:10px;
-}
-.chapter h3{font-weight:500;font-size:23px;color:var(--ivory);margin-bottom:8px}
-.chapter p{font-size:17px}
-.chapters-note{margin-top:28px;font-size:16px}
+.chapter{padding:32px 0;border-top:1px solid rgba(210,174,98,.25)}
+.chapter:last-of-type{border-bottom:1px solid rgba(210,174,98,.25)}
+.chapter .ch-label{display:block;margin-bottom:10px}
+.chapter h3{font-weight:500;font-size:19px;color:var(--ivory);margin-bottom:6px}
+.chapter p{font-size:14px}
+.chapters-note{margin-top:28px;font-size:13px}
 
 /* =========================================================
    4. Dress Code
    ========================================================= */
 .swatches{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:36px 0 12px}
-.swatch{height:130px;border:1px solid rgba(255,255,255,.12)}
+.swatch{height:120px;border:1px solid rgba(255,255,255,.1)}
 .sw-navy{background:#141a33}
 .sw-ivory{background:var(--ivory)}
 .sw-gold{background:var(--gold)}
@@ -241,47 +247,41 @@ p{color:var(--text-dim);font-size:17px;max-width:660px}
 .js .swatch.reveal.in{clip-path:inset(0 0 0 0)}
 .swatch-names{
   display:grid;grid-template-columns:repeat(3,1fr);gap:16px;
-  font-size:14px;font-weight:500;color:var(--text-dim);letter-spacing:.12em;margin-bottom:40px;
+  font-size:12px;color:var(--text-dim);letter-spacing:.1em;margin-bottom:40px;
 }
 .dress-card{
-  background:linear-gradient(160deg,var(--deep-purple),#0e0a1c);
-  border:1px solid rgba(210,174,98,.35);
+  background:linear-gradient(160deg,rgba(26,16,48,.85),rgba(14,10,28,.85));
+  border:1px solid rgba(210,174,98,.3);
   padding:36px 32px;margin-bottom:20px;
 }
 .dress-card .label{margin-bottom:12px}
-.dress-card p{font-size:17px}
+.dress-card p{font-size:14px}
 
 /* =========================================================
    5. Plan your evening
    ========================================================= */
 .plan-item{
-  display:grid;grid-template-columns:170px 1fr;gap:24px;
-  padding:24px 0;border-top:1px solid rgba(210,174,98,.3);
+  display:grid;grid-template-columns:160px 1fr;gap:24px;
+  padding:22px 0;border-top:1px solid rgba(210,174,98,.25);
 }
-.plan-item:last-child{border-bottom:1px solid rgba(210,174,98,.3)}
-.plan-item .k{font-family:var(--serif);font-weight:600;font-size:15px;letter-spacing:.3em;color:var(--gold)}
-.plan-item .v{color:var(--ivory);font-size:18px;font-weight:500}
+.plan-item:last-child{border-bottom:1px solid rgba(210,174,98,.25)}
+.plan-item .v{color:var(--ivory);font-size:15px}
 .plan-item .v a{color:var(--gold);text-decoration:none;border-bottom:1px solid var(--gold-soft)}
 
 /* =========================================================
    6. Be part of the evening (CTA)
    ========================================================= */
-.cta{
-  text-align:center;max-width:none;
-  background:radial-gradient(ellipse at 50% 100%,rgba(42,26,74,.55),transparent 70%);
-}
-.cta .inner{max-width:680px;margin:0 auto}
-.cta p{margin:0 auto 38px}
-.cta-buttons{display:flex;flex-wrap:wrap;gap:16px;justify-content:center}
+.cta{text-align:center;max-width:none}
+.cta .inner{max-width:640px;margin:0 auto}
+.cta p{margin:0 auto 36px}
 .btn{
   position:relative;z-index:0;
-  display:inline-flex;align-items:center;gap:10px;
-  overflow:hidden;cursor:pointer;
-  padding:18px 46px;border:1px solid var(--gold);
+  display:inline-block;overflow:hidden;cursor:pointer;
+  padding:16px 44px;border:1px solid var(--gold);
   background:transparent;
   color:var(--gold);text-decoration:none;
   font-family:var(--sans);font-weight:500;
-  font-size:16px;letter-spacing:.2em;
+  font-size:14px;letter-spacing:.2em;
   transition:color .5s var(--ease);
 }
 .btn::before{
@@ -290,10 +290,9 @@ p{color:var(--text-dim);font-size:17px;max-width:660px}
 }
 .btn:hover,.btn:focus-visible{color:var(--black);outline:none}
 .btn:hover::before,.btn:focus-visible::before{transform:none}
-.btn svg{width:20px;height:20px;fill:currentColor}
 .btn-primary{background:var(--gold);color:var(--black)}
 .btn-primary::before{background:var(--gold-light)}
-.cta .note{margin:30px auto 0;font-size:15px}
+.cta .note{margin:30px auto 0;font-size:12px}
 
 /* =========================================================
    Google Form 팝업
@@ -314,30 +313,37 @@ p{color:var(--text-dim);font-size:17px;max-width:660px}
 .modal-close{
   position:absolute;top:-46px;right:0;
   background:none;border:0;cursor:pointer;
-  color:var(--ivory);font-size:15px;letter-spacing:.2em;
+  color:var(--ivory);font-size:14px;letter-spacing:.2em;
   font-family:var(--sans);font-weight:500;
 }
 .modal-close:hover,.modal-close:focus-visible{color:var(--gold);outline:none}
 .modal-fallback{
   position:absolute;bottom:-40px;left:0;right:0;text-align:center;
-  font-size:14px;color:var(--text-dim);
+  font-size:13px;color:var(--text-dim);max-width:none;
 }
 .modal-fallback a{color:var(--gold)}
 
 /* =========================================================
-   Footer
+   Footer (구분선 없음)
    ========================================================= */
-footer{text-align:center;padding:60px 24px 80px;border-top:1px solid rgba(210,174,98,.2)}
-footer .brand{font-family:var(--title);font-weight:500;font-size:18px;letter-spacing:.35em;color:var(--ivory);margin-bottom:12px}
-footer .small{font-size:14px;color:var(--text-dim);letter-spacing:.08em}
-.footer-insta{margin-top:32px}
+footer{text-align:center;padding:60px 24px 90px}
+footer .brand{font-family:var(--title);font-weight:500;font-size:16px;letter-spacing:.35em;color:var(--ivory);margin-bottom:10px}
+footer .small{font-size:12px;color:var(--text-dim);letter-spacing:.08em;margin:0 auto}
+.insta-link{
+  display:inline-block;margin-top:22px;
+  font-family:var(--serif);font-weight:600;
+  font-size:14px;letter-spacing:.2em;
+  color:var(--gold);text-decoration:none;
+  border-bottom:1px solid transparent;
+  transition:border-color .4s var(--ease),color .4s var(--ease);
+}
+.insta-link:hover,.insta-link:focus-visible{color:var(--gold-light);border-bottom-color:var(--gold-soft);outline:none}
 
 @media (max-width:600px){
-  body{font-size:16px}
   section{padding:90px 20px}
   .plan-item{grid-template-columns:1fr;gap:6px}
   .beam{clip-path:polygon(46% 0,54% 0,100% 100%,0 100%)}
-  .btn{padding:16px 34px;width:100%;justify-content:center}
+  .btn{padding:16px 34px}
   .modal{padding:56px 12px 48px}
 }
 
@@ -356,16 +362,23 @@ footer .small{font-size:14px;color:var(--text-dim);letter-spacing:.08em}
 <div class="progress" id="progress"></div>
 
 <!-- =========================================================
-     1. HERO (조명 하나만 비추는 전시장)
+     STAGE: 첫 화면부터 마지막 페이지까지 이어지는 조명
      ========================================================= -->
-<header class="hero" id="hero">
+<div class="stage" aria-hidden="true">
   <div class="track"></div>
   <div class="lamp"></div>
-  <div class="beam"></div>
-  <div class="pool"></div>
-  <canvas id="dust"></canvas>
+  <div class="light" id="light">
+    <div class="beam"></div>
+    <div class="pool"></div>
+    <canvas id="dust"></canvas>
+  </div>
   <div class="vignette"></div>
+</div>
 
+<!-- =========================================================
+     1. HERO
+     ========================================================= -->
+<header class="hero" id="hero">
   <div class="hero-top">GLD · EXHIBITION OF THE YEAR</div> <!-- ★ 임시 문구: 위 영어 글자를 직접 고치세요 -->
 
   <div class="hero-parallax" id="heroContent">
@@ -380,6 +393,7 @@ footer .small{font-size:14px;color:var(--text-dim);letter-spacing:.08em}
   <div class="scroll-hint">SCROLL</div>
 </header>
 
+<main>
 
 <!-- =========================================================
      2. A shared beginning.
@@ -391,7 +405,6 @@ footer .small{font-size:14px;color:var(--text-dim);letter-spacing:.08em}
   <p class="sub reveal" style="--d:.2s">여기에 한 줄 소개 문구를 입력하세요.</p>
   <p class="reveal" style="--d:.3s">여기에 본문 설명 문단을 입력하세요. 행사의 취지와 분위기를 소개하는 2~3문장 정도의 내용이 들어갑니다.</p>
 </section>
-<div class="divider"></div>
 
 
 <!-- =========================================================
@@ -420,7 +433,6 @@ footer .small{font-size:14px;color:var(--text-dim);letter-spacing:.08em}
 
   <p class="chapters-note reveal">프로그램 하단 안내 문구를 입력하세요.</p>
 </section>
-<div class="divider"></div>
 
 
 <!-- =========================================================
@@ -451,7 +463,6 @@ footer .small{font-size:14px;color:var(--text-dim);letter-spacing:.08em}
     <p>피해야 할 복장 설명을 입력하세요.</p>
   </div>
 </section>
-<div class="divider"></div>
 
 
 <!-- =========================================================
@@ -482,7 +493,6 @@ footer .small{font-size:14px;color:var(--text-dim);letter-spacing:.08em}
     <span class="v">문의처를 입력하세요</span>
   </div>
 </section>
-<div class="divider"></div>
 
 
 <!-- =========================================================
@@ -492,9 +502,9 @@ footer .small{font-size:14px;color:var(--text-dim);letter-spacing:.08em}
   <div class="inner">
     <span class="label reveal">RSVP</span> <!-- ★ 임시 라벨 -->
     <h2 class="reveal" style="--d:.1s">Be part of the evening</h2>
-    <p class="reveal" style="--d:.2s">참석 신청 안내 문구를 입력하세요.</p>
+    <p class="reveal" style="--d:.2s">참석 안내 문구를 입력하세요.</p>
 
-    <div class="cta-buttons reveal" style="--d:.3s">
+    <div class="reveal" style="--d:.3s">
       <!-- 참석하기: 누르면 구글폼 팝업이 열립니다 (주소는 맨 아래 <script> 맨 위에서 수정) -->
       <button type="button" class="btn btn-primary" id="openForm">참석하기</button>
     </div>
@@ -503,6 +513,8 @@ footer .small{font-size:14px;color:var(--text-dim);letter-spacing:.08em}
   </div>
 </section>
 
+</main>
+
 
 <!-- =========================================================
      Footer
@@ -510,14 +522,8 @@ footer .small{font-size:14px;color:var(--text-dim);letter-spacing:.08em}
 <footer>
   <div class="brand">GLD ANNUAL NIGHT</div>
   <div class="small">하단 부가 문구를 입력하세요</div>
-
   <!-- 인스타그램: href 안의 주소를 본인 계정으로 바꾸세요 -->
-  <div class="footer-insta">
-    <a class="btn" href="https://www.instagram.com/YOUR_ACCOUNT/" target="_blank" rel="noopener noreferrer">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7.75 2h8.5A5.75 5.75 0 0 1 22 7.75v8.5A5.75 5.75 0 0 1 16.25 22h-8.5A5.75 5.75 0 0 1 2 16.25v-8.5A5.75 5.75 0 0 1 7.75 2Zm0 1.5A4.25 4.25 0 0 0 3.5 7.75v8.5a4.25 4.25 0 0 0 4.25 4.25h8.5a4.25 4.25 0 0 0 4.25-4.25v-8.5a4.25 4.25 0 0 0-4.25-4.25h-8.5ZM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm0 1.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7Zm5.4-2.15a1.15 1.15 0 1 1 0 2.3 1.15 1.15 0 0 1 0-2.3Z"/></svg>
-      INSTAGRAM
-    </a>
-  </div>
+  <a class="insta-link" href="https://www.instagram.com/YOUR_ACCOUNT/" target="_blank" rel="noopener noreferrer">Visit our Instagram</a>
 </footer>
 
 
@@ -550,9 +556,9 @@ var FORM_URL       = 'https://docs.google.com/forms/d/e/여기에_폼ID/viewform
 (function(){
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  /* 1) 히어로 오프닝: 조명이 부드럽게 켜짐 */
+  /* 1) 오프닝: 조명이 부드럽게 켜짐 */
   requestAnimationFrame(function(){
-    document.getElementById('hero').classList.add('is-lit');
+    document.body.classList.add('is-lit');
   });
 
   /* 2) 스크롤 등장 효과 */
@@ -568,18 +574,23 @@ var FORM_URL       = 'https://docs.google.com/forms/d/e/여기에_폼ID/viewform
     targets.forEach(function(t){ t.classList.add('in'); });
   }
 
-  /* 3) 스크롤 진행 바 + 히어로 패럴랙스 */
+  /* 3) 스크롤 진행 바 + 히어로 패럴랙스 + 조명 밝기 조절
+        (첫 화면을 지나면 조명을 55% 정도로 낮춰 글자가 잘 보이게, 마지막 페이지까지 유지) */
   var bar = document.getElementById('progress');
   var hc  = document.getElementById('heroContent');
+  var light = document.getElementById('light');
   var ticking = false;
   function onScroll(){
-    var y = window.scrollY, h = document.documentElement.scrollHeight - window.innerHeight;
+    var y = window.scrollY, vh = window.innerHeight;
+    var h = document.documentElement.scrollHeight - vh;
     bar.style.transform = 'scaleX(' + (h > 0 ? y/h : 0) + ')';
-    if(!reduce && y < window.innerHeight){
-      var p = y / window.innerHeight;
+    if(!reduce && y < vh){
+      var p = y / vh;
       hc.style.transform = 'translateY(' + (y*0.25) + 'px)';
       hc.style.opacity = Math.max(0, 1 - p*1.4);
     }
+    var t = Math.min(1, y / (vh * 0.8));
+    light.style.setProperty('--beam', (1 - 0.45*t).toFixed(3));
     ticking = false;
   }
   window.addEventListener('scroll', function(){
@@ -612,7 +623,7 @@ var FORM_URL       = 'https://docs.google.com/forms/d/e/여기에_폼ID/viewform
     if(e.key === 'Escape' && modal.classList.contains('open')) closeForm();
   });
 
-  /* 5) 빛줄기 속에 떠다니는 먼지 입자 (은은하게 천천히 이동, 깜박임 없음) */
+  /* 5) 빛줄기 속에 떠다니는 먼지 입자 */
   var cv = document.getElementById('dust');
   if(!cv || reduce) return;
   var ctx = cv.getContext('2d'), W, H, dots = [];
