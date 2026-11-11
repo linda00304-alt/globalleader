@@ -8,8 +8,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
-<!-- 메인 제목: Great Vibes (필기체) / 라벨: Cinzel (숫자가 또렷한 격식체) / 소제목: Cormorant Garamond -->
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Cormorant+Garamond:wght@500;600&family=Noto+Sans+KR:wght@400;500;700&family=Great+Vibes&display=swap" rel="stylesheet">
+<!-- 메인 제목: Playfair Display 이탤릭 (우아하지만 또렷함) / 라벨: Cinzel (숫자가 또렷한 격식체) / 소제목: Cormorant Garamond -->
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Cormorant+Garamond:wght@500;600&family=Noto+Sans+KR:wght@400;500;700&family=Playfair+Display:ital,wght@1,500&display=swap" rel="stylesheet">
 <!-- 한글/본문: Pretendard -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.css">
 
@@ -33,7 +33,7 @@
   --text-dim:#c6bfd6;
   --title:'Cinzel','Noto Serif KR',serif;
   --serif:'Cormorant Garamond','Noto Serif KR',serif;
-  --script:'Great Vibes','Cormorant Garamond',cursive;
+  --display:'Playfair Display','Cormorant Garamond',serif;
   --sans:'Pretendard Variable','Pretendard','Noto Sans KR','Apple SD Gothic Neo',-apple-system,BlinkMacSystemFont,'Malgun Gothic',sans-serif;
   --ease:cubic-bezier(.22,.8,.24,1);
 }
@@ -188,13 +188,13 @@ p{color:var(--text-dim);font-size:15px;max-width:640px}
   font-family:var(--serif);font-weight:600;font-size:16px;letter-spacing:.45em;
   color:var(--gold);margin-bottom:34px;
 }
-/* 메인 제목: 필기체(Great Vibes) + 금색.  글자 끝 장식이 잘리지 않도록 padding을 넉넉히 줌 */
+/* 메인 제목: Playfair Display 이탤릭 + 금색 (우아하면서 또렷하게 읽히는 흘림체) */
 .hero h1{
-  font-family:var(--script);
-  font-weight:400;
-  line-height:1.05;
-  letter-spacing:0;
-  padding:8px 48px 22px;
+  font-family:var(--display);
+  font-weight:500;
+  font-style:italic;
+  line-height:1.08;
+  padding:6px 24px 14px;
   color:var(--gold-light);
   background:linear-gradient(180deg,#f9e9b4 0%,var(--gold) 100%);
   -webkit-background-clip:text;background-clip:text;
@@ -202,14 +202,8 @@ p{color:var(--text-dim);font-size:15px;max-width:640px}
   filter:drop-shadow(0 2px 24px rgba(210,174,98,.25));
 }
 .hero h1 span{display:block}
-.hero h1 .t1{font-size:clamp(56px,min(12vw,15vh),150px)}
-.hero h1 .t2{font-size:clamp(40px,min(8.5vw,10.5vh),104px);margin-top:-.08em}
-/* 로고 (첫 화면) */
-.hero-logo{
-  display:block;margin:0 auto 18px;
-  height:clamp(84px,14vh,128px);width:auto;
-  filter:drop-shadow(0 0 18px rgba(210,174,98,.28));
-}
+.hero h1 .t1{font-size:clamp(64px,min(13vw,17vh),160px);letter-spacing:.06em}
+.hero h1 .t2{font-size:clamp(30px,min(7vw,9vh),88px);letter-spacing:.14em;margin-top:.1em}
 .hero-line{
   width:1px;height:44px;margin:22px auto 14px;
   background:linear-gradient(180deg,var(--gold),transparent);
@@ -297,15 +291,18 @@ p{color:var(--text-dim);font-size:15px;max-width:640px}
 .plan-item:last-child{border-bottom:1px solid rgba(210,174,98,.25)}
 .plan-item .v{color:var(--ivory);font-size:15px}
 .plan-item .v a{color:var(--gold);text-decoration:none;border-bottom:1px solid var(--gold-soft)}
-.plan-item .tag{display:inline-block;margin-left:10px;padding:0 10px;border:1px solid var(--gold-soft);color:var(--gold-light);font-size:12px;letter-spacing:.04em;line-height:22px;vertical-align:1px}
+/* 지도: 어두운 사이트 톤에 맞춰 색을 반전 (원래 색을 원하면 filter 줄만 삭제) */
+.map-wrap{margin-top:16px;height:300px;border:1px solid rgba(210,174,98,.4);overflow:hidden;background:#111}
+.map-wrap iframe{display:block;width:100%;height:100%;border:0;filter:invert(92%) hue-rotate(180deg) brightness(.9) contrast(.95) saturate(.6)}
 .plan-item .v small{display:block;margin-top:6px;font-size:13px;font-weight:400;color:var(--text-dim)}
 
 /* =========================================================
    6. Be part of the evening (CTA)
    ========================================================= */
 .cta{text-align:center;max-width:none}
+#join{padding:90px 24px 24px}
 .cta .inner{max-width:640px;margin:0 auto}
-.cta p{margin:0 auto 36px}
+.cta p{margin:0 auto 28px}
 /* 참석하기 버튼: 첫 화면과 마지막 페이지 동일 크기 (가로 180 × 세로 46) */
 .btn{
   position:relative;z-index:0;
@@ -348,7 +345,7 @@ p{color:var(--text-dim);font-size:15px;max-width:640px}
 }
 .btn:hover::before,.btn:focus-visible::before{transform:none}
 .btn:active{transform:translateY(0)}
-.cta .note{margin:30px auto 0;font-size:12px}
+.cta .note{margin:22px auto 0;font-size:12px}
 
 /* =========================================================
    Google Form 팝업
@@ -382,12 +379,8 @@ p{color:var(--text-dim);font-size:15px;max-width:640px}
 /* =========================================================
    Footer (구분선 없음)
    ========================================================= */
-footer{text-align:center;padding:60px 24px 90px}
-.footer-logo{display:block;height:76px;width:auto;margin:0 auto 20px;opacity:.9}
-.watermark{
-  position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
-  width:min(78vw,640px);height:auto;opacity:.05;
-}
+footer{text-align:center;padding:20px 24px 56px}
+.footer-logo{display:block;height:68px;width:auto;margin:0 auto 14px;opacity:.9}
 footer .brand{font-family:var(--title);font-weight:500;font-size:16px;letter-spacing:.26em;color:var(--ivory);margin-bottom:10px}
 footer .small{font-size:12px;color:var(--text-dim);letter-spacing:.08em;margin:0 auto}
 .insta-link{
@@ -403,6 +396,7 @@ footer .small{font-size:12px;color:var(--text-dim);letter-spacing:.08em;margin:0
 @media (max-width:600px){
   section{padding:90px 20px}
   .plan-item{grid-template-columns:1fr;gap:6px}
+  .map-wrap{height:240px}
   .cone{clip-path:polygon(46% 0,54% 0,100% 100%,0 100%)}
   .hero-top{font-size:min(10px,2.7vw);letter-spacing:.16em}
   .hero h1{padding:6px 20px 16px}
@@ -446,8 +440,6 @@ footer .small{font-size:12px;color:var(--text-dim);letter-spacing:.08em;margin:0
 
   <!-- 장면 1 : 좌우 사이드 상단 조명 -->
   <div class="scene" data-scene="1">
-    <!-- 아주 옅은 로고 워터마크 (필요 없으면 이 한 줄 삭제) -->
-    <img class="watermark" src="gld-logo.png" alt="" onerror="this.style.display='none'">
     <i class="lamp" style="--x:7%;--rot:-30deg"></i>
     <i class="lamp" style="--x:93%;--rot:30deg"></i>
     <i class="cone" style="--x:7%;--w:640px;--h:135%;--rot:-30deg;--o:.5"></i>
@@ -474,9 +466,7 @@ footer .small{font-size:12px;color:var(--text-dim);letter-spacing:.08em;margin:0
 
   <div class="hero-parallax" id="heroContent">
     <div class="hero-content">
-      <!-- 로고: gld-logo.png 파일이 index.html과 같은 폴더에 있어야 합니다 -->
-      <img class="hero-logo" src="gld-logo.png" alt="School of Global Leader 로고" onerror="this.style.display='none'">
-      <h1><span class="t1">GLD</span><span class="t2">Annual Night</span></h1>
+      <h1><span class="t1">GLD</span><span class="t2">ANNUAL NIGHT</span></h1>
       <div class="hero-line"></div>
       <div class="hero-sub">2026 글로벌리더학부의 밤 안내</div> <!-- ★ 임시 문구 -->
       <!-- 누르면 맨 아래 참석하기 페이지(#join)로 이동 -->
@@ -497,7 +487,7 @@ footer .small{font-size:12px;color:var(--text-dim);letter-spacing:.08em;margin:0
   <h2 class="reveal" style="--d:.1s">A shared beginning</h2>
   <span class="draw"></span>
   <p class="sub reveal" style="--d:.2s">다시 모인 하나의 글로벌리더학부</p>
-  <p class="reveal" style="--d:.3s">재학생과 동문, 그리고 글로벌리더학부의 구성원이 한자리에 모입니다. 각자의 자리에서 쌓아 온 이야기를 나누고, 서로의 오늘을 만나는 시간. GLD Annual Night에 여러분을 초대합니다.</p>
+  <p class="reveal" style="--d:.3s">재학생과 동문, 그리고 글로벌리더학부의 구성원이 한자리에 모입니다. 각자의 자리에서 쌓아 온 이야기를 나누고, 서로의 오늘을 만나는 시간. 2026 글로벌리더학부의 밤에 여러분을 초대합니다.</p>
 </section>
 
 
@@ -557,7 +547,7 @@ footer .small{font-size:12px;color:var(--text-dim);letter-spacing:.08em;margin:0
 
   <div class="plan-item reveal">
     <span class="k">DATE</span>
-    <span class="v">2026년 12월 23일</span>
+    <span class="v">2026년 12월 23일 수요일</span>
   </div>
   <div class="plan-item reveal" style="--d:.1s">
     <span class="k">TIME</span>
@@ -565,7 +555,12 @@ footer .small{font-size:12px;color:var(--text-dim);letter-spacing:.08em;margin:0
   </div>
   <div class="plan-item reveal" style="--d:.2s">
     <span class="k">VENUE</span>
-    <span class="v">성균관대학교 인문사회과학캠퍼스 600주년기념관 5층 조병두국제홀 (<a href="https://naver.me/Fuzg8ML2">지도 보기</a>)</span> <!-- ★ href="#" 자리에 지도 링크 -->
+    <div class="v">성균관대학교 인문사회과학캠퍼스 600주년기념관 5층 조병두국제홀 (<a href="https://naver.me/Fuzg8ML2">지도 보기</a>) <!-- ★ href 자리에 네이버 지도 링크 -->
+      <!-- 페이지 안에서 바로 보이는 지도 (구글 지도). 검색어(q=) 뒤의 글자를 바꾸면 위치가 바뀝니다 -->
+      <div class="map-wrap">
+        <iframe title="행사 장소 지도" src="https://www.google.com/maps?q=%EC%84%B1%EA%B7%A0%EA%B4%80%EB%8C%80%ED%95%99%EA%B5%90%20%EC%9D%B8%EB%AC%B8%EC%82%AC%ED%9A%8C%EA%B3%BC%ED%95%99%EC%BA%A0%ED%8D%BC%EC%8A%A4%20600%EC%A3%BC%EB%85%84%EA%B8%B0%EB%85%90%EA%B4%80&hl=ko&z=17&output=embed" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+    </div>
   </div>
   <div class="plan-item reveal" style="--d:.3s">
     <span class="k">DRESS CODE</span>
@@ -573,7 +568,7 @@ footer .small{font-size:12px;color:var(--text-dim);letter-spacing:.08em;margin:0
   </div>
   <div class="plan-item reveal" style="--d:.4s">
     <span class="k">AFTER PARTY</span>
-    <span class="v">행사 종료 후 회식 장소를 입력하세요 (<a href="#">지도 보기</a>)<span class="tag">자율 참석</span>
+    <span class="v">행사 종료 후 회식 장소를 입력하세요 (<a href="#">지도 보기</a>)
       <small>회식은 자율 참석입니다. 부담 없이 편하게 결정해 주세요.</small>
     </span> <!-- ★ 장소 글자와 href="#"(지도 링크)를 직접 고치세요 -->
   </div>
@@ -605,6 +600,7 @@ footer .small{font-size:12px;color:var(--text-dim);letter-spacing:.08em;margin:0
      Footer
      ========================================================= -->
 <footer data-room="2">
+  <!-- 로고: gld-logo.png 파일이 index.html과 같은 폴더에 있어야 합니다 -->
   <img class="footer-logo" src="gld-logo.png" alt="School of Global Leader 로고" onerror="this.style.display='none'">
   <div class="brand">GLD ANNUAL NIGHT</div>
   <div class="small">SUNGKYUNKWAN UNIVERSITY · GLOBALLEADER</div>
