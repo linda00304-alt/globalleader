@@ -287,6 +287,8 @@ p{color:var(--text-dim);font-size:15px;max-width:640px}
 .plan-item:last-child{border-bottom:1px solid rgba(210,174,98,.25)}
 .plan-item .v{color:var(--ivory);font-size:15px}
 .plan-item .v a{color:var(--gold);text-decoration:none;border-bottom:1px solid var(--gold-soft)}
+.plan-item .tag{display:inline-block;margin-left:10px;padding:0 10px;border:1px solid var(--gold-soft);color:var(--gold-light);font-size:12px;letter-spacing:.04em;line-height:22px;vertical-align:1px}
+.plan-item .v small{display:block;margin-top:6px;font-size:13px;font-weight:400;color:var(--text-dim)}
 
 /* =========================================================
    6. Be part of the evening (CTA)
@@ -294,11 +296,11 @@ p{color:var(--text-dim);font-size:15px;max-width:640px}
 .cta{text-align:center;max-width:none}
 .cta .inner{max-width:640px;margin:0 auto}
 .cta p{margin:0 auto 36px}
-/* 참석하기 버튼: 첫 화면과 마지막 페이지 동일 크기 (가로 280 × 세로 46) */
+/* 참석하기 버튼: 첫 화면과 마지막 페이지 동일 크기 (가로 180 × 세로 46) */
 .btn{
   position:relative;z-index:0;
   display:inline-block;overflow:hidden;cursor:pointer;
-  width:280px;height:46px;line-height:44px;padding:0;
+  width:180px;height:46px;line-height:44px;padding:0;
   text-align:center;
   border:1px solid var(--gold);
   background:transparent;
@@ -366,7 +368,7 @@ footer .small{font-size:12px;color:var(--text-dim);letter-spacing:.08em;margin:0
   section{padding:90px 20px}
   .plan-item{grid-template-columns:1fr;gap:6px}
   .cone{clip-path:polygon(46% 0,54% 0,100% 100%,0 100%)}
-  .btn{width:min(280px,100%)}
+  .btn{width:min(180px,100%)}
   .modal{padding:56px 12px 48px}
 }
 
@@ -528,6 +530,12 @@ footer .small{font-size:12px;color:var(--text-dim);letter-spacing:.08em;margin:0
     <span class="k">DRESS CODE</span>
     <span class="v">Black & Deep Purple</span>
   </div>
+  <div class="plan-item reveal" style="--d:.4s">
+    <span class="k">AFTER PARTY</span>
+    <span class="v">행사 종료 후 회식 장소를 입력하세요 (<a href="#">지도 보기</a>)<span class="tag">자율 참석</span>
+      <small>회식은 자율 참석입니다. 부담 없이 편하게 결정해 주세요.</small>
+    </span> <!-- ★ 장소 글자와 href="#"(지도 링크)를 직접 고치세요 -->
+  </div>
 </section>
 
 
@@ -538,7 +546,7 @@ footer .small{font-size:12px;color:var(--text-dim);letter-spacing:.08em;margin:0
   <div class="inner">
     <span class="label reveal">RSVP</span> <!-- ★ 임시 라벨 -->
     <h2 class="reveal" style="--d:.1s">Be part of the evening</h2>
-    <p class="reveal" style="--d:.2s">다시 만날 반가움, 처음 만날 이야기. 함께해주세요.</p>
+    <p class="reveal" style="--d:.2s">다시 만난 반가움, 처음 만날 이야기. 함께해주세요.</p>
 
     <div class="reveal" style="--d:.3s">
       <!-- 참석하기: 누르면 구글폼 팝업이 열립니다 (주소는 맨 아래 <script> 맨 위에서 수정) -->
