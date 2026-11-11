@@ -291,9 +291,9 @@ p{color:var(--text-dim);font-size:15px;max-width:640px}
 .plan-item:last-child{border-bottom:1px solid rgba(210,174,98,.25)}
 .plan-item .v{color:var(--ivory);font-size:15px}
 .plan-item .v a{color:var(--gold);text-decoration:none;border-bottom:1px solid var(--gold-soft)}
-/* 지도: 어두운 사이트 톤에 맞춰 색을 반전 (원래 색을 원하면 filter 줄만 삭제) */
-.map-wrap{margin-top:16px;height:300px;border:1px solid rgba(210,174,98,.4);overflow:hidden;background:#111}
-.map-wrap iframe{display:block;width:100%;height:100%;border:0;filter:invert(92%) hue-rotate(180deg) brightness(.9) contrast(.95) saturate(.6)}
+/* 지도 (카카오맵 약도). 컴퓨터에서는 최대 640px 폭 */
+.map-wrap{margin-top:16px;max-width:640px;border:1px solid rgba(210,174,98,.4);overflow:hidden;background:#111}
+.map-wrap .root_daum_roughmap{max-width:100%}
 .plan-item .v small{display:block;margin-top:6px;font-size:13px;font-weight:400;color:var(--text-dim)}
 
 /* =========================================================
@@ -379,9 +379,8 @@ p{color:var(--text-dim);font-size:15px;max-width:640px}
 /* =========================================================
    Footer (구분선 없음)
    ========================================================= */
-footer{text-align:center;padding:20px 24px 56px}
-.footer-logo{display:block;height:68px;width:auto;margin:0 auto 14px;opacity:.9}
-footer .brand{font-family:var(--title);font-weight:500;font-size:16px;letter-spacing:.26em;color:var(--ivory);margin-bottom:10px}
+footer{text-align:center;padding:56px 24px 56px}
+.footer-logo{display:block;height:48px;width:auto;margin:0 auto 14px;opacity:.9}
 footer .small{font-size:12px;color:var(--text-dim);letter-spacing:.08em;margin:0 auto}
 .insta-link{
   display:inline-block;margin-top:22px;
@@ -396,7 +395,6 @@ footer .small{font-size:12px;color:var(--text-dim);letter-spacing:.08em;margin:0
 @media (max-width:600px){
   section{padding:90px 20px}
   .plan-item{grid-template-columns:1fr;gap:6px}
-  .map-wrap{height:240px}
   .cone{clip-path:polygon(46% 0,54% 0,100% 100%,0 100%)}
   .hero-top{font-size:min(10px,2.7vw);letter-spacing:.16em}
   .hero h1{padding:6px 20px 16px}
@@ -555,10 +553,24 @@ footer .small{font-size:12px;color:var(--text-dim);letter-spacing:.08em;margin:0
   </div>
   <div class="plan-item reveal" style="--d:.2s">
     <span class="k">VENUE</span>
-    <div class="v">성균관대학교 인문사회과학캠퍼스 600주년기념관 5층 조병두국제홀 (<a href="https://naver.me/Fuzg8ML2">지도 보기</a>) <!-- ★ href 자리에 네이버 지도 링크 -->
-      <!-- 페이지 안에서 바로 보이는 지도 (구글 지도). 검색어(q=) 뒤의 글자를 바꾸면 위치가 바뀝니다 -->
+    <div class="v">성균관대학교 인문사회과학캠퍼스 600주년기념관 5층 조병두국제홀 (<a href="https://place.map.kakao.com/24633581" target="_blank" rel="noopener noreferrer">지도 보기</a>) <!-- ★ href 자리에 지도 링크 -->
+      <!-- 카카오맵 약도 (카카오맵 '퍼가기'로 만든 코드). 아래 key 값은 바꾸지 마세요 -->
       <div class="map-wrap">
-        <iframe title="행사 장소 지도" src="https://www.google.com/maps?q=%EC%84%B1%EA%B7%A0%EA%B4%80%EB%8C%80%ED%95%99%EA%B5%90%20%EC%9D%B8%EB%AC%B8%EC%82%AC%ED%9A%8C%EA%B3%BC%ED%95%99%EC%BA%A0%ED%8D%BC%EC%8A%A4%20600%EC%A3%BC%EB%85%84%EA%B8%B0%EB%85%90%EA%B4%80&hl=ko&z=17&output=embed" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <div id="daumRoughmapContainer1794376952224" class="root_daum_roughmap root_daum_roughmap_landing"></div>
+        <script charset="UTF-8" class="daum_roughmap_loader_script" src="https://t1.kakaocdn.net/kakaomapweb/roughmap/loader/prod/roughmapLoader.js"></script>
+        <script charset="UTF-8">
+          (function(){
+            /* 화면 폭에 맞춰 지도 크기를 정함 (컴퓨터 최대 640 × 360, 모바일은 폭에 맞춰 줄어듦) */
+            var box = document.getElementById('daumRoughmapContainer1794376952224').parentNode;
+            var w = Math.min(640, box.clientWidth || 640);
+            new daum.roughmap.Lander({
+              "timestamp" : "1794376952224",
+              "key" : "4tm4fypvzvv",
+              "mapWidth" : String(w),
+              "mapHeight" : w < 500 ? "260" : "360"
+            }).render();
+          })();
+        </script>
       </div>
     </div>
   </div>
@@ -602,7 +614,6 @@ footer .small{font-size:12px;color:var(--text-dim);letter-spacing:.08em;margin:0
 <footer data-room="2">
   <!-- 로고: gld-logo.png 파일이 index.html과 같은 폴더에 있어야 합니다 -->
   <img class="footer-logo" src="gld-logo.png" alt="School of Global Leader 로고" onerror="this.style.display='none'">
-  <div class="brand">GLD ANNUAL NIGHT</div>
   <div class="small">SUNGKYUNKWAN UNIVERSITY · GLOBALLEADER</div>
   <!-- 인스타그램: href 안의 주소를 본인 계정으로 바꾸세요 -->
   <a class="insta-link" href="https://www.instagram.com/globalleader_skku?obrf=MXcybmk4ZDhyczRlZQ%3D%3D&utm_source=qr">Visit our Instagram</a>
