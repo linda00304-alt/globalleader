@@ -67,7 +67,6 @@ body{
   -webkit-font-smoothing:antialiased;
   overflow-x:hidden;
 }
-body.modal-open{overflow:hidden}
 
 /* 화면 전체를 비추는 고정 조명 무대 위에 내용이 올라감 */
 .hero,main,footer{position:relative;z-index:2}
@@ -356,35 +355,6 @@ p{color:var(--text-dim);font-size:15px;max-width:640px}
 .cta .note{margin:22px auto 0;font-size:12px}
 
 /* =========================================================
-   Google Form 팝업
-   ========================================================= */
-.modal{
-  position:fixed;inset:0;z-index:100;
-  display:none;align-items:center;justify-content:center;
-  padding:24px;
-  background:rgba(4,3,8,.88);
-}
-.modal.open{display:flex}
-.modal-box{
-  position:relative;width:min(720px,100%);height:min(86vh,820px);
-  background:#fff;border:1px solid var(--gold);
-  box-shadow:0 30px 90px rgba(0,0,0,.7);
-}
-.modal-box iframe{width:100%;height:100%;border:0;display:block}
-.modal-close{
-  position:absolute;top:-46px;right:0;
-  background:none;border:0;cursor:pointer;
-  color:var(--ivory);font-size:14px;letter-spacing:.2em;
-  font-family:var(--sans);font-weight:500;
-}
-.modal-close:hover,.modal-close:focus-visible{color:var(--gold);outline:none}
-.modal-fallback{
-  position:absolute;bottom:-40px;left:0;right:0;text-align:center;
-  font-size:13px;color:var(--text-dim);max-width:none;
-}
-.modal-fallback a{color:var(--gold)}
-
-/* =========================================================
    Footer (구분선 없음)
    ========================================================= */
 footer{text-align:center;padding:56px 24px 56px}
@@ -406,7 +376,6 @@ footer .small{font-size:12px;color:var(--text-dim);letter-spacing:.08em;margin:0
   .cone{clip-path:polygon(46% 0,54% 0,100% 100%,0 100%)}
   .hero-top{font-size:min(10px,2.7vw);letter-spacing:.16em}
   .btn{width:min(180px,100%)}
-  .modal{padding:56px 12px 48px}
 }
 
 /* 움직임 줄이기 설정 존중 */
@@ -503,7 +472,7 @@ footer .small{font-size:12px;color:var(--text-dim);letter-spacing:.08em;margin:0
 <section id="chapters" data-room="1">
   <span class="label reveal">THE PROGRAM</span> <!-- ★ 임시 라벨 -->
   <h2 class="reveal" style="--d:.1s">An evening in chapters</h2>
-  <p class="reveal" style="--d:.2s;margin-bottom:40px">성균관대학교 글로빌리더학부 동문 행사</p>
+  <p class="reveal" style="--d:.2s;margin-bottom:40px">성균관대학교 글로벌리더학부 동문 행사</p>
 
   <div class="chapter reveal">
     <div class="ch-head"><span class="ch-label">CHAPTER 01</span><span class="ch-time">19:00 – 19:40</span></div> <!-- ★ 오른쪽 시간을 직접 고치세요 -->
@@ -607,8 +576,10 @@ footer .small{font-size:12px;color:var(--text-dim);letter-spacing:.08em;margin:0
     <p class="reveal" style="--d:.2s">다시 만난 반가움, 처음 만날 이야기. 함께해주세요.</p>
 
     <div class="reveal" style="--d:.3s">
-      <!-- 참석하기: 누르면 구글폼 팝업이 열립니다 (주소는 맨 아래 <script> 맨 위에서 수정) -->
-      <button type="button" class="btn btn-primary" id="openForm">참석하기</button>
+      <!-- 참석하기: 누르면 구글폼으로 바로 이동합니다 (새 창).
+           ★ href 안의 주소를 실제 구글폼 [보내기] > [링크] 주소로 바꾸세요.
+           같은 창에서 이동시키려면 target="_blank" rel="noopener noreferrer" 부분을 지우세요 -->
+      <a class="btn btn-primary" href="https://여기에_구글폼_링크" target="_blank" rel="noopener noreferrer">참석하기</a>
     </div>
 
     <p class="note reveal" style="--d:.4s">재학생과 졸업생의 신청폼이 동일합니다.</p>
@@ -630,32 +601,7 @@ footer .small{font-size:12px;color:var(--text-dim);letter-spacing:.08em;margin:0
 </footer>
 
 
-<!-- =========================================================
-     구글폼 팝업
-     ========================================================= -->
-<div class="modal" id="formModal" role="dialog" aria-modal="true" aria-label="참석하기">
-  <div class="modal-box">
-    <button type="button" class="modal-close" id="closeForm">CLOSE ✕</button>
-    <iframe id="formFrame" title="참석하기" loading="lazy">신청서를 불러오는 중입니다…</iframe>
-    <div class="modal-fallback">
-      팝업이 보이지 않으면 <a id="formNewTab" href="#" target="_blank" rel="noopener noreferrer">새 창에서 열기</a>
-    </div>
-  </div>
-</div>
-
-
 <script>
-/* =========================================================
-   ★★★ 여기만 수정하면 됩니다 ★★★
-   구글폼 주소 2개를 아래 따옴표 안에 붙여넣으세요.
-   1) FORM_EMBED_URL : 구글폼 [보내기] > [< > 퍼가기]에서 나오는 코드 중 src="..." 안의 주소
-                       (끝이 ?embedded=true 로 끝납니다)
-   2) FORM_URL       : 구글폼 [보내기] > [링크] 주소 (새 창 열기용)
-   ========================================================= */
-var FORM_EMBED_URL = 'https://docs.google.com/forms/d/e/여기에_폼ID/viewform?embedded=true';
-var FORM_URL       = 'https://docs.google.com/forms/d/e/여기에_폼ID/viewform';
-/* ========================================================= */
-
 (function(){
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -713,32 +659,7 @@ var FORM_URL       = 'https://docs.google.com/forms/d/e/여기에_폼ID/viewform
     document.querySelectorAll('[data-room]').forEach(function(el){ so.observe(el); });
   }
 
-  /* 4) 구글폼 팝업 */
-  var modal = document.getElementById('formModal');
-  var frame = document.getElementById('formFrame');
-  var openBtn = document.getElementById('openForm');
-  var closeBtn = document.getElementById('closeForm');
-  document.getElementById('formNewTab').href = FORM_URL;
-
-  function openForm(){
-    if(!frame.getAttribute('src')) frame.setAttribute('src', FORM_EMBED_URL);
-    modal.classList.add('open');
-    document.body.classList.add('modal-open');
-    closeBtn.focus();
-  }
-  function closeForm(){
-    modal.classList.remove('open');
-    document.body.classList.remove('modal-open');
-    openBtn.focus();
-  }
-  openBtn.addEventListener('click', openForm);
-  closeBtn.addEventListener('click', closeForm);
-  modal.addEventListener('click', function(e){ if(e.target === modal) closeForm(); });
-  document.addEventListener('keydown', function(e){
-    if(e.key === 'Escape' && modal.classList.contains('open')) closeForm();
-  });
-
-  /* 5) 빛줄기 속에 떠다니는 먼지 입자 */
+  /* 4) 빛줄기 속에 떠다니는 먼지 입자 */
   var cv = document.getElementById('dust');
   if(!cv || reduce) return;
   var ctx = cv.getContext('2d'), W, H, dots = [];
