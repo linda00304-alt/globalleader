@@ -294,10 +294,13 @@ p{color:var(--text-dim);font-size:15px;max-width:640px}
 .cta{text-align:center;max-width:none}
 .cta .inner{max-width:640px;margin:0 auto}
 .cta p{margin:0 auto 36px}
+/* 참석하기 버튼: 첫 화면과 마지막 페이지 동일 크기 (가로 280 × 세로 46) */
 .btn{
   position:relative;z-index:0;
   display:inline-block;overflow:hidden;cursor:pointer;
-  padding:16px 44px;border:1px solid var(--gold);
+  width:280px;height:46px;line-height:44px;padding:0;
+  text-align:center;
+  border:1px solid var(--gold);
   background:transparent;
   color:var(--gold);text-decoration:none;
   font-family:var(--sans);font-weight:500;
@@ -347,7 +350,7 @@ p{color:var(--text-dim);font-size:15px;max-width:640px}
    Footer (구분선 없음)
    ========================================================= */
 footer{text-align:center;padding:60px 24px 90px}
-footer .brand{font-family:var(--title);font-weight:500;font-size:16px;letter-spacing:.35em;color:var(--ivory);margin-bottom:10px}
+footer .brand{font-family:var(--title);font-weight:500;font-size:16px;letter-spacing:.26em;color:var(--ivory);margin-bottom:10px}
 footer .small{font-size:12px;color:var(--text-dim);letter-spacing:.08em;margin:0 auto}
 .insta-link{
   display:inline-block;margin-top:22px;
@@ -363,7 +366,7 @@ footer .small{font-size:12px;color:var(--text-dim);letter-spacing:.08em;margin:0
   section{padding:90px 20px}
   .plan-item{grid-template-columns:1fr;gap:6px}
   .cone{clip-path:polygon(46% 0,54% 0,100% 100%,0 100%)}
-  .btn{padding:16px 34px}
+  .btn{width:min(280px,100%)}
   .modal{padding:56px 12px 48px}
 }
 
@@ -425,14 +428,14 @@ footer .small{font-size:12px;color:var(--text-dim);letter-spacing:.08em;margin:0
      1. HERO
      ========================================================= -->
 <header class="hero" id="hero" data-room="0">
-  <div class="hero-top">GLD · EXHIBITION OF THE YEAR</div> <!-- ★ 임시 문구: 위 영어 글자를 직접 고치세요 -->
+  <div class="hero-top">SUNGKYUNKWAN UNIVERSITY · GLOBALLEADER</div> <!-- ★ 임시 문구: 위 영어 글자를 직접 고치세요 -->
 
   <div class="hero-parallax" id="heroContent">
     <div class="hero-content">
-      <div class="hero-eyebrow">A NIGHT OF GLD</div> <!-- ★ 임시 문구 -->
+      <div class="hero-eyebrow">A NIGHT THAT BRINGS US TOGETHER</div> <!-- ★ 임시 문구 -->
       <h1><span>GLD</span><span>ANNUAL NIGHT</span></h1>
       <div class="hero-line"></div>
-      <div class="hero-sub">연말 파티 안내</div> <!-- ★ 임시 문구 -->
+      <div class="hero-sub">2026 글로벌리더학부의 밤 안내</div> <!-- ★ 임시 문구 -->
       <!-- 누르면 맨 아래 참석하기 페이지(#join)로 이동 -->
       <div class="hero-cta"><a class="btn btn-primary" href="#join">참석하기</a></div>
     </div>
@@ -450,8 +453,8 @@ footer .small{font-size:12px;color:var(--text-dim);letter-spacing:.08em;margin:0
   <span class="label reveal">THE INVITATION</span> <!-- ★ 임시 라벨 -->
   <h2 class="reveal" style="--d:.1s">A shared beginning.</h2>
   <span class="draw"></span>
-  <p class="sub reveal" style="--d:.2s">여기에 한 줄 소개 문구를 입력하세요.</p>
-  <p class="reveal" style="--d:.3s">여기에 본문 설명 문단을 입력하세요. 행사의 취지와 분위기를 소개하는 2~3문장 정도의 내용이 들어갑니다.</p>
+  <p class="sub reveal" style="--d:.2s">다시 모인 하나의 글로벌리더학부</p>
+  <p class="reveal" style="--d:.3s">재학생과 동문, 그리고 글로벌리더학부의 구성원이 한자리에 모입니다. 각자의 자리에서 쌓아 온 이야기를 나누고, 서로의 오늘을 만나는 시간. GLD Annual Night에 여러분을 초대합니다.</p>
 </section>
 
 
@@ -461,25 +464,25 @@ footer .small{font-size:12px;color:var(--text-dim);letter-spacing:.08em;margin:0
 <section id="chapters" data-room="1">
   <span class="label reveal">THE PROGRAM</span> <!-- ★ 임시 라벨 -->
   <h2 class="reveal" style="--d:.1s">An evening in chapters.</h2>
-  <p class="reveal" style="--d:.2s;margin-bottom:40px">여기에 프로그램 소개 한 줄을 입력하세요.</p>
+  <p class="reveal" style="--d:.2s;margin-bottom:40px">함께할 시간</p>
 
   <div class="chapter reveal">
-    <div class="ch-head"><span class="ch-label">CHAPTER 01</span><span class="ch-time">00:00 – 00:00</span></div> <!-- ★ 오른쪽 시간을 직접 고치세요 -->
-    <h3>첫 번째 챕터 제목</h3>
-    <p>첫 번째 챕터 설명을 입력하세요.</p>
+    <div class="ch-head"><span class="ch-label">CHAPTER 01</span><span class="ch-time">19:00 – 19:40</span></div> <!-- ★ 오른쪽 시간을 직접 고치세요 -->
+    <h3>공식 행사</h3>
+    <p>개회사 및 교수님 축사를 시작으로, 올해 학생회 주요 사업 보고 및 동문회 출범 안내, 학부의 발자취를 담은 아카이브 영상 상영 순으로 진행. 1부 행사의 마지막 순서로 럭키드로우(경품 추첨) 진행</p>
   </div>
   <div class="chapter reveal" style="--d:.15s">
-    <div class="ch-head"><span class="ch-label">CHAPTER 02</span><span class="ch-time">00:00 – 00:00</span></div> <!-- ★ 오른쪽 시간을 직접 고치세요 -->
-    <h3>두 번째 챕터 제목</h3>
-    <p>두 번째 챕터 설명을 입력하세요.</p>
+    <div class="ch-head"><span class="ch-label">CHAPTER 02</span><span class="ch-time">19:50 – 20:30</span></div> <!-- ★ 오른쪽 시간을 직접 고치세요 -->
+    <h3>케이터링 리셉션</h3>
+    <p>풍성한 식사와 함께 자유롭게 소통하는 네트워킹 시간</p>
   </div>
   <div class="chapter reveal" style="--d:.3s">
-    <div class="ch-head"><span class="ch-label">CHAPTER 03</span><span class="ch-time">00:00 – 00:00</span></div> <!-- ★ 오른쪽 시간을 직접 고치세요 -->
-    <h3>세 번째 챕터 제목</h3>
-    <p>세 번째 챕터 설명을 입력하세요.</p>
+    <div class="ch-head"><span class="ch-label">CHAPTER 03</span><span class="ch-time">20:40 – 22:00</span></div> <!-- ★ 오른쪽 시간을 직접 고치세요 -->
+    <h3>교류 행사</h3>
+    <p>선후배 간의 활발한 교류와 소통을 위한 참여형 네트워킹 시간</p>
   </div>
 
-  <p class="chapters-note reveal">프로그램 하단 안내 문구를 입력하세요.</p>
+  <p class="chapters-note reveal">당일 진행 상황에 따라 행사 종료 시간이 변동될 수 있습니다.</p>
 </section>
 
 
@@ -489,7 +492,7 @@ footer .small{font-size:12px;color:var(--text-dim);letter-spacing:.08em;margin:0
 <section id="dresscode" data-room="1">
   <span class="label reveal">THE ATTIRE</span> <!-- ★ 임시 라벨 -->
   <h2 class="reveal" style="--d:.1s">Dress Code</h2>
-  <p class="reveal" style="--d:.2s">드레스코드 소개 문구를 입력하세요.</p>
+  <p class="reveal" style="--d:.2s">Black & Deep Purple</p>
 
   <div class="swatches">
     <div class="swatch sw-black reveal"></div>
@@ -498,11 +501,6 @@ footer .small{font-size:12px;color:var(--text-dim);letter-spacing:.08em;margin:0
   <div class="swatch-names reveal" style="--d:.4s">
     <span>BLACK</span>
     <span>DEEP PURPLE</span>
-  </div>
-
-  <div class="dress-card reveal">
-    <span class="label">RECOMMENDED</span> <!-- ★ 임시 라벨 -->
-    <p>권장 복장 설명을 입력하세요.</p>
   </div>
 </section>
 
@@ -516,23 +514,19 @@ footer .small{font-size:12px;color:var(--text-dim);letter-spacing:.08em;margin:0
 
   <div class="plan-item reveal">
     <span class="k">DATE</span>
-    <span class="v">날짜를 입력하세요</span>
+    <span class="v">2026년 12월 23일</span>
   </div>
   <div class="plan-item reveal" style="--d:.1s">
     <span class="k">TIME</span>
-    <span class="v">시간을 입력하세요</span>
+    <span class="v">19:00 - 22:00</span>
   </div>
   <div class="plan-item reveal" style="--d:.2s">
     <span class="k">VENUE</span>
-    <span class="v">장소를 입력하세요 (<a href="#">지도 보기</a>)</span> <!-- ★ href="#" 자리에 지도 링크 -->
+    <span class="v">성균관대학교 인문사회과학캠퍼스 600주년기념관 5층 조병두국제홀 (<a href="https://naver.me/Fuzg8ML2">지도 보기</a>)</span> <!-- ★ href="#" 자리에 지도 링크 -->
   </div>
   <div class="plan-item reveal" style="--d:.3s">
     <span class="k">DRESS CODE</span>
-    <span class="v">드레스코드를 입력하세요</span>
-  </div>
-  <div class="plan-item reveal" style="--d:.4s">
-    <span class="k">CONTACT</span>
-    <span class="v">문의처를 입력하세요</span>
+    <span class="v">Black & Deep Purple</span>
   </div>
 </section>
 
@@ -544,7 +538,7 @@ footer .small{font-size:12px;color:var(--text-dim);letter-spacing:.08em;margin:0
   <div class="inner">
     <span class="label reveal">RSVP</span> <!-- ★ 임시 라벨 -->
     <h2 class="reveal" style="--d:.1s">Be part of the evening</h2>
-    <p class="reveal" style="--d:.2s">참석 안내 문구를 입력하세요.</p>
+    <p class="reveal" style="--d:.2s">다시 만날 반가움, 처음 만날 이야기. 함께해주세요.</p>
 
     <div class="reveal" style="--d:.3s">
       <!-- 참석하기: 누르면 구글폼 팝업이 열립니다 (주소는 맨 아래 <script> 맨 위에서 수정) -->
@@ -563,9 +557,9 @@ footer .small{font-size:12px;color:var(--text-dim);letter-spacing:.08em;margin:0
      ========================================================= -->
 <footer data-room="2">
   <div class="brand">GLD ANNUAL NIGHT</div>
-  <div class="small">하단 부가 문구를 입력하세요</div>
+  <div class="small">SUNGKYUNKWAN UNIVERSITY · GLOBALLEADER</div>
   <!-- 인스타그램: href 안의 주소를 본인 계정으로 바꾸세요 -->
-  <a class="insta-link" href="https://www.instagram.com/YOUR_ACCOUNT/" target="_blank" rel="noopener noreferrer">Visit our Instagram</a>
+  <a class="insta-link" href="https://www.instagram.com/globalleader_skku?obrf=MXcybmk4ZDhyczRlZQ%3D%3D&utm_source=qr">Visit our Instagram</a>
 </footer>
 
 
