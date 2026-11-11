@@ -8,8 +8,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
-<!-- 메인 제목: Playfair Display 이탤릭 (우아하지만 또렷함) / 라벨: Cinzel (숫자가 또렷한 격식체) / 소제목: Cormorant Garamond -->
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Cormorant+Garamond:wght@500;600&family=Noto+Sans+KR:wght@400;500;700&family=Playfair+Display:ital,wght@1,500&display=swap" rel="stylesheet">
+<!-- 메인 제목은 이미지(gld-title.png) / 라벨: Cinzel (숫자가 또렷한 격식체) / 소제목: Cormorant Garamond -->
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Cormorant+Garamond:wght@500;600&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
 <!-- 한글/본문: Pretendard -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.css">
 
@@ -188,22 +188,13 @@ p{color:var(--text-dim);font-size:15px;max-width:640px}
   font-family:var(--serif);font-weight:600;font-size:16px;letter-spacing:.45em;
   color:var(--gold);margin-bottom:34px;
 }
-/* 메인 제목: Playfair Display 이탤릭 + 금색 (우아하면서 또렷하게 읽히는 흘림체) */
-.hero h1{
-  font-family:var(--display);
-  font-weight:500;
-  font-style:italic;
-  line-height:1.08;
-  padding:6px 24px 14px;
-  color:var(--gold-light);
-  background:linear-gradient(180deg,#f9e9b4 0%,var(--gold) 100%);
-  -webkit-background-clip:text;background-clip:text;
-  -webkit-text-fill-color:transparent;
-  filter:drop-shadow(0 2px 24px rgba(210,174,98,.25));
+/* 메인 제목: 직접 만드신 이미지(gld-title.png) */
+.hero h1{margin:0;line-height:0}
+.hero-title{
+  display:block;margin:0 auto;
+  width:min(86vw,780px);height:auto;max-height:40vh;object-fit:contain;
+  filter:drop-shadow(0 0 28px rgba(210,174,98,.25));
 }
-.hero h1 span{display:block}
-.hero h1 .t1{font-size:clamp(64px,min(13vw,17vh),160px);letter-spacing:.06em}
-.hero h1 .t2{font-size:clamp(30px,min(7vw,9vh),88px);letter-spacing:.14em;margin-top:.1em}
 .hero-line{
   width:1px;height:44px;margin:22px auto 14px;
   background:linear-gradient(180deg,var(--gold),transparent);
@@ -294,6 +285,8 @@ p{color:var(--text-dim);font-size:15px;max-width:640px}
 /* 지도 (카카오맵 약도). 컴퓨터에서는 최대 640px 폭 */
 .map-wrap{margin-top:16px;max-width:640px;border:1px solid rgba(210,174,98,.4);overflow:hidden;background:#111}
 .map-wrap .root_daum_roughmap{max-width:100%}
+/* 지도 아래에 붙는 장소 정보(주소·전화·교통 등)는 숨김 */
+.map-wrap .cont{display:none!important}
 .plan-item .v small{display:block;margin-top:6px;font-size:13px;font-weight:400;color:var(--text-dim)}
 
 /* =========================================================
@@ -397,7 +390,6 @@ footer .small{font-size:12px;color:var(--text-dim);letter-spacing:.08em;margin:0
   .plan-item{grid-template-columns:1fr;gap:6px}
   .cone{clip-path:polygon(46% 0,54% 0,100% 100%,0 100%)}
   .hero-top{font-size:min(10px,2.7vw);letter-spacing:.16em}
-  .hero h1{padding:6px 20px 16px}
   .btn{width:min(180px,100%)}
   .modal{padding:56px 12px 48px}
 }
@@ -464,7 +456,8 @@ footer .small{font-size:12px;color:var(--text-dim);letter-spacing:.08em;margin:0
 
   <div class="hero-parallax" id="heroContent">
     <div class="hero-content">
-      <h1><span class="t1">GLD</span><span class="t2">ANNUAL NIGHT</span></h1>
+      <!-- 제목 이미지: gld-title.png 파일이 index.html과 같은 폴더에 있어야 합니다 -->
+      <h1><img class="hero-title" src="gld-title.png" alt="GLD Annual Night"></h1>
       <div class="hero-line"></div>
       <div class="hero-sub">2026 글로벌리더학부의 밤 안내</div> <!-- ★ 임시 문구 -->
       <!-- 누르면 맨 아래 참석하기 페이지(#join)로 이동 -->
@@ -563,11 +556,13 @@ footer .small{font-size:12px;color:var(--text-dim);letter-spacing:.08em;margin:0
             /* 화면 폭에 맞춰 지도 크기를 정함 (컴퓨터 최대 640 × 360, 모바일은 폭에 맞춰 줄어듦) */
             var box = document.getElementById('daumRoughmapContainer1794376952224').parentNode;
             var w = Math.min(640, box.clientWidth || 640);
+            var h = w < 500 ? 260 : 360;
+            box.style.height = (h + 2) + 'px';   /* 지도 부분만 보이도록 높이를 고정 (아래 정보 영역은 잘림) */
             new daum.roughmap.Lander({
               "timestamp" : "1794376952224",
               "key" : "4tm4fypvzvv",
               "mapWidth" : String(w),
-              "mapHeight" : w < 500 ? "260" : "360"
+              "mapHeight" : String(h)
             }).render();
           })();
         </script>
