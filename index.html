@@ -9,9 +9,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 <!-- 제목/라벨: Cinzel (숫자가 또렷한 격식체) / 소제목: Cormorant Garamond -->
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Cormorant+Garamond:wght@500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Cormorant+Garamond:wght@500;600&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
 <!-- 한글/본문: Pretendard -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.css">
 
 <!-- JS가 켜져 있을 때만 '숨김 → 등장' 효과 적용 (JS가 꺼져도 내용은 보이게) -->
 <script>document.documentElement.classList.add('js');</script>
@@ -30,10 +30,10 @@
   --gold-dark:#9a7a35;
   --gold-soft:rgba(210,174,98,.4);
   --text:#e4deee;
-  --text-dim:#b3abc6;
+  --text-dim:#c6bfd6;
   --title:'Cinzel','Noto Serif KR',serif;
   --serif:'Cormorant Garamond','Noto Serif KR',serif;
-  --sans:'Pretendard','Pretendard Variable',-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif;
+  --sans:'Pretendard Variable','Pretendard','Noto Sans KR','Apple SD Gothic Neo',-apple-system,BlinkMacSystemFont,'Malgun Gothic',sans-serif;
   --ease:cubic-bezier(.22,.8,.24,1);
 }
 *{box-sizing:border-box;margin:0;padding:0}
@@ -45,6 +45,8 @@ body{
   font-weight:400;
   font-size:16px;
   line-height:1.8;
+  letter-spacing:-0.01em;
+  word-break:keep-all;
   font-variant-numeric:lining-nums;
   -webkit-font-smoothing:antialiased;
   overflow-x:hidden;
@@ -87,7 +89,7 @@ p{color:var(--text-dim);font-size:15px;max-width:640px}
    각 .scene 이 하나의 전시실이고, 섹션에 도달하면 부드럽게 교체됨
    ========================================================= */
 .stage{
-  position:fixed;inset:0;z-index:0;pointer-events:none;
+  position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;
   background:
     radial-gradient(ellipse 70% 50% at 50% 0%, rgba(42,26,74,.5), transparent 70%),
     linear-gradient(180deg,#0a0714 0%, var(--black) 70%);
@@ -114,7 +116,8 @@ p{color:var(--text-dim);font-size:15px;max-width:640px}
 /* 조명 기구 */
 .lamp{
   position:absolute;top:3px;left:var(--x,50%);
-  width:34px;height:20px;transform:translateX(-50%);
+  width:34px;height:20px;transform:translateX(-50%) rotate(var(--rot,0deg));
+  transform-origin:50% 0;
   background:linear-gradient(180deg,#1b1727,#0d0a15);
   border-radius:3px 3px 17px 17px;
   border:1px solid rgba(255,255,255,.08);
@@ -130,8 +133,9 @@ p{color:var(--text-dim);font-size:15px;max-width:640px}
 /* 빛줄기: --x 위치, --w 너비, --o 밝기, --c 색(R,G,B) */
 .cone{
   position:absolute;top:20px;left:var(--x,50%);
-  width:var(--w,1100px);max-width:150vw;height:calc(100% - 20px);
-  transform:translateX(-50%);
+  width:var(--w,1100px);max-width:150vw;height:var(--h,calc(100% - 20px));
+  transform:translateX(-50%) rotate(var(--rot,0deg));
+  transform-origin:50% 0;
   background:linear-gradient(180deg,
     rgba(var(--c,255,244,215),.34) 0%,
     rgba(var(--c,255,244,215),.14) 45%,
@@ -200,7 +204,7 @@ p{color:var(--text-dim);font-size:15px;max-width:640px}
   width:1px;height:56px;margin:38px auto 18px;
   background:linear-gradient(180deg,var(--gold),transparent);
 }
-.hero-sub{font-size:17px;font-weight:500;letter-spacing:.2em;color:var(--text)}
+.hero-sub{font-size:17px;font-weight:500;letter-spacing:.06em;color:var(--text)}
 .hero-cta{margin-top:40px}
 .scroll-hint{
   position:absolute;bottom:34px;left:50%;transform:translateX(-50%);z-index:2;
@@ -258,12 +262,9 @@ p{color:var(--text-dim);font-size:15px;max-width:640px}
    4. Dress Code
    ========================================================= */
 .swatches{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin:36px 0 12px}
-.swatch{height:120px;border:1px solid rgba(210,174,98,.35)}
-.sw-black{background:#09080d}
-.sw-purple{background:#2a1a4a}
-.js .swatch.reveal{clip-path:inset(0 100% 0 0);transform:none;filter:none;opacity:1;
-  transition:clip-path 1.2s var(--ease);transition-delay:var(--d,0s)}
-.js .swatch.reveal.in{clip-path:inset(0 0 0 0)}
+.swatch{height:120px;border:1px solid rgba(210,174,98,.55);box-shadow:0 10px 30px rgba(0,0,0,.45)}
+.sw-black{background:linear-gradient(160deg,#1c1925,#050407)}
+.sw-purple{background:linear-gradient(160deg,#3d2574,#241347)}
 .swatch-names{
   display:grid;grid-template-columns:repeat(2,1fr);gap:16px;
   font-size:12px;color:var(--text-dim);letter-spacing:.1em;margin-bottom:40px;
@@ -300,7 +301,7 @@ p{color:var(--text-dim);font-size:15px;max-width:640px}
   background:transparent;
   color:var(--gold);text-decoration:none;
   font-family:var(--sans);font-weight:500;
-  font-size:14px;letter-spacing:.2em;
+  font-size:15px;letter-spacing:.06em;
   transition:color .5s var(--ease);
 }
 .btn::before{
@@ -369,7 +370,7 @@ footer .small{font-size:12px;color:var(--text-dim);letter-spacing:.08em;margin:0
 /* 움직임 줄이기 설정 존중 */
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
-  .js .reveal,.js .swatch.reveal{opacity:1;transform:none;filter:none;clip-path:none;transition:none}
+  .js .reveal{opacity:1;transform:none;filter:none;clip-path:none;transition:none}
   .draw{width:56px;transition:none}
   .js .hero-content,.js .hero-top,.js .scroll-hint{opacity:1}
   .scene{transition:none}
@@ -382,14 +383,17 @@ footer .small{font-size:12px;color:var(--text-dim);letter-spacing:.08em;margin:0
 <div class="progress" id="progress"></div>
 
 <!-- =========================================================
-     STAGE: 스크롤할 때마다 바뀌는 전시실 조명 (장면 0~5)
-     --x 위치 / --w 너비 / --o 밝기(0~1) / --c 빛 색(R,G,B) 를 바꿔 조절하세요
+     STAGE: 조명 장면은 3개뿐 (통일감 있게)
+       장면 0 · 첫 화면            : 중앙 위에서 비추는 단독 조명
+       장면 1 · 중간 페이지 전부   : 양 사이드 상단에서 안쪽으로 비추는 조명 2개
+       장면 2 · 마지막 페이지      : 다시 중앙 단독 조명
+     --x 위치 / --w 너비 / --o 밝기(0~1) / --rot 기울기(deg) / --c 빛 색(R,G,B)
      ========================================================= -->
 <div class="stage" aria-hidden="true">
   <div class="track"></div>
   <div class="floor"></div>
 
-  <!-- 장면 0 · 첫 화면: 중앙 조명 하나 -->
+  <!-- 장면 0 -->
   <div class="scene scene-hero active" data-scene="0">
     <i class="lamp" style="--x:50%"></i>
     <i class="cone" style="--x:50%;--w:1100px"></i>
@@ -397,47 +401,18 @@ footer .small{font-size:12px;color:var(--text-dim);letter-spacing:.08em;margin:0
     <canvas id="dust"></canvas>
   </div>
 
-  <!-- 장면 1 · A shared beginning: 왼쪽에서 비추는 단독 조명 -->
+  <!-- 장면 1 : 좌우 사이드 상단 조명 -->
   <div class="scene" data-scene="1">
-    <i class="lamp" style="--x:26%"></i>
-    <i class="cone" style="--x:26%;--w:760px;--o:.55"></i>
-    <i class="pool" style="--x:26%;--w:620px;--o:.5"></i>
+    <i class="lamp" style="--x:7%;--rot:-30deg"></i>
+    <i class="lamp" style="--x:93%;--rot:30deg"></i>
+    <i class="cone" style="--x:7%;--w:640px;--h:135%;--rot:-30deg;--o:.5"></i>
+    <i class="cone" style="--x:93%;--w:640px;--h:135%;--rot:30deg;--o:.5"></i>
+    <i class="pool" style="--x:30%;--w:520px;--o:.35"></i>
+    <i class="pool" style="--x:70%;--w:520px;--o:.35"></i>
   </div>
 
-  <!-- 장면 2 · An evening in chapters: 세 개의 챕터 = 세 개의 조명 -->
+  <!-- 장면 2 : 마지막 페이지 -->
   <div class="scene" data-scene="2">
-    <i class="lamp" style="--x:22%"></i>
-    <i class="lamp" style="--x:50%"></i>
-    <i class="lamp" style="--x:78%"></i>
-    <i class="cone narrow" style="--x:22%;--w:460px;--o:.55"></i>
-    <i class="cone narrow" style="--x:50%;--w:460px;--o:.55"></i>
-    <i class="cone narrow" style="--x:78%;--w:460px;--o:.55"></i>
-    <i class="pool" style="--x:22%;--w:380px;--o:.5"></i>
-    <i class="pool" style="--x:50%;--w:380px;--o:.5"></i>
-    <i class="pool" style="--x:78%;--w:380px;--o:.5"></i>
-  </div>
-
-  <!-- 장면 3 · Dress Code: 딥퍼플 전시실 (양옆 벽면 조명) -->
-  <div class="scene" data-scene="3">
-    <div class="wash l"></div>
-    <div class="wash r"></div>
-    <i class="lamp" style="--x:50%"></i>
-    <i class="cone" style="--x:50%;--w:900px;--o:.5;--c:200,170,255"></i>
-    <i class="pool" style="--x:50%;--w:800px;--o:.55;--c:190,160,255"></i>
-  </div>
-
-  <!-- 장면 4 · Plan your evening: 양쪽 두 개의 조명 -->
-  <div class="scene" data-scene="4">
-    <i class="lamp" style="--x:16%"></i>
-    <i class="lamp" style="--x:84%"></i>
-    <i class="cone" style="--x:16%;--w:640px;--o:.5;--c:255,232,185"></i>
-    <i class="cone" style="--x:84%;--w:640px;--o:.5;--c:255,232,185"></i>
-    <i class="pool" style="--x:16%;--w:520px;--o:.45"></i>
-    <i class="pool" style="--x:84%;--w:520px;--o:.45"></i>
-  </div>
-
-  <!-- 장면 5 · 마지막: 첫 화면처럼 다시 중앙 조명 하나 -->
-  <div class="scene" data-scene="5">
     <i class="lamp" style="--x:50%"></i>
     <i class="cone" style="--x:50%;--w:1000px;--o:.65"></i>
     <i class="pool" style="--x:50%;--w:1100px;--o:.85"></i>
@@ -483,7 +458,7 @@ footer .small{font-size:12px;color:var(--text-dim);letter-spacing:.08em;margin:0
 <!-- =========================================================
      3. An evening in chapters.
      ========================================================= -->
-<section id="chapters" data-room="2">
+<section id="chapters" data-room="1">
   <span class="label reveal">THE PROGRAM</span> <!-- ★ 임시 라벨 -->
   <h2 class="reveal" style="--d:.1s">An evening in chapters.</h2>
   <p class="reveal" style="--d:.2s;margin-bottom:40px">여기에 프로그램 소개 한 줄을 입력하세요.</p>
@@ -511,7 +486,7 @@ footer .small{font-size:12px;color:var(--text-dim);letter-spacing:.08em;margin:0
 <!-- =========================================================
      4. Dress Code
      ========================================================= -->
-<section id="dresscode" data-room="3">
+<section id="dresscode" data-room="1">
   <span class="label reveal">THE ATTIRE</span> <!-- ★ 임시 라벨 -->
   <h2 class="reveal" style="--d:.1s">Dress Code</h2>
   <p class="reveal" style="--d:.2s">드레스코드 소개 문구를 입력하세요.</p>
@@ -535,7 +510,7 @@ footer .small{font-size:12px;color:var(--text-dim);letter-spacing:.08em;margin:0
 <!-- =========================================================
      5. Plan your evening
      ========================================================= -->
-<section id="plan" data-room="4">
+<section id="plan" data-room="1">
   <span class="label reveal">THE DETAILS</span> <!-- ★ 임시 라벨 -->
   <h2 class="reveal" style="--d:.1s">Plan your evening</h2>
 
@@ -565,7 +540,7 @@ footer .small{font-size:12px;color:var(--text-dim);letter-spacing:.08em;margin:0
 <!-- =========================================================
      6. Be part of the evening (CTA)
      ========================================================= -->
-<section class="cta" id="join" data-room="5">
+<section class="cta" id="join" data-room="2">
   <div class="inner">
     <span class="label reveal">RSVP</span> <!-- ★ 임시 라벨 -->
     <h2 class="reveal" style="--d:.1s">Be part of the evening</h2>
@@ -586,7 +561,7 @@ footer .small{font-size:12px;color:var(--text-dim);letter-spacing:.08em;margin:0
 <!-- =========================================================
      Footer
      ========================================================= -->
-<footer data-room="5">
+<footer data-room="2">
   <div class="brand">GLD ANNUAL NIGHT</div>
   <div class="small">하단 부가 문구를 입력하세요</div>
   <!-- 인스타그램: href 안의 주소를 본인 계정으로 바꾸세요 -->
